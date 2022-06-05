@@ -72,7 +72,9 @@ const Tags: NextPage<Props> = ({ pages, tag }) => {
       justifyContent="space-between"
     >
       <Head>
-        <title>{`${tag} - uzimaru's blog`}</title>
+        <title>{`${tag} - ${
+          process.env.NEXT_PUBLIC_BLOG_TITLE ?? 'blog'
+        }`}</title>
         <meta name="description" content={`${tag} がついた記事の一覧`} />
       </Head>
       <OGTag />

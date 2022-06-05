@@ -68,7 +68,9 @@ export default function Home({ pages }: Props) {
             alignItems="center"
           >
             <Twemoji emoji="📖" w="1em" />
-            <Text marginLeft="2">{"uzimaru's blog"}</Text>
+            <Text marginLeft="2">
+              {process.env.NEXT_PUBLIC_BLOG_TITLE ?? 'blog'}
+            </Text>
             <Box flexGrow="1" />
             <IconButton
               aria-label="Toggle color mode"

@@ -1,4 +1,5 @@
 import { Center, VStack, Link, StackProps, Text } from '@chakra-ui/react';
+import { existsGaId } from '../lib/gtag';
 
 export const Footer: React.VFC<StackProps> = (props) => {
   return (
@@ -10,19 +11,23 @@ export const Footer: React.VFC<StackProps> = (props) => {
       justifyContent="center"
       {...props}
     >
-      <Text color="black">
-        このサイトではアクセス解析のためにcookieを使用した
-        <Link
-          href="https://policies.google.com/technologies/partner-sites"
-          color="blue.400"
-        >
-          Google Analytics
-        </Link>
-        を使用しています。
-      </Text>
+      {existsGaId && (
+        <Text color="black">
+          このサイトではアクセス解析のためにcookieを使用した
+          <Link
+            href="https://policies.google.com/technologies/partner-sites"
+            color="blue.400"
+          >
+            Google Analytics
+          </Link>
+          を使用しています。
+        </Text>
+      )}
       <Center color="black">
-        <Text whiteSpace="break-spaces">© 2022 </Text>
-        <Link href="https://twitter.com/uzimaru0000">uzimaru</Link>
+        <Text whiteSpace="break-spaces">Made with </Text>
+        <Link href="https://github.com/uzimaru0000/notion-blog-template">
+          notion-blog-template
+        </Link>
       </Center>
     </VStack>
   );

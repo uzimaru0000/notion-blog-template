@@ -1,26 +1,31 @@
 import NextHead from 'next/head';
-import twemoji from 'twemoji';
 import { ogp } from '../lib/ogp';
 
 export const Head: React.VFC<React.PropsWithChildren<{}>> = ({ children }) => {
   return (
     <NextHead>
-      <title>{"uzimaru's blog"}</title>
-      <meta
-        name="description"
-        content="うじまるのブログです。技術的なことや日常的なことを書いていきます。"
+      <title>{process.env.NEXT_PUBLIC_BLOG_TITLE ?? 'blog'}</title>
+      {process.env.NEXT_PUBLIC_BLOG_DESCRIPTION && (
+        <meta
+          name="description"
+          content={process.env.NEXT_PUBLIC_BLOG_DESCRIPTION}
+        />
+      )}
+      <link
+        rel="icon"
+        href={process.env.NEXT_PUBLIC_BLOG_FAVICON ?? '/favicon.ico'}
       />
-      <link rel="icon" href={fabicon} />
       {children}
     </NextHead>
   );
 };
 
+const ORIGIN = process.env.BLOG_ORIGIN;
 export const OGTag = ({
-  url = 'https://blog.uzimaru.com',
+  url = ORIGIN,
   type = 'website',
   title,
-  description = 'うじまるのブログです。技術的なことや日常的なことを書いていきます。',
+  description,
 }: {
   url?: string;
   type?: 'website' | 'article';
@@ -31,12 +36,18 @@ export const OGTag = ({
     <NextHead>
       <meta property="og:url" content={url} />
       <meta property="og:type" content={type} />
-      <meta property="og:title" content={title || 'うじまるのブログ'} />
+      <meta
+        property="og:title"
+        content={title || (process.env.NEXT_PUBLIC_BLOG_TITLE ?? 'blog')}
+      />
       <meta property="og:description" content={description} />
-      <meta property="og:site_name" content="uzimaru's blog" />
+      <meta
+        property="og:site_name"
+        content={process.env.NEXT_PUBLIC_BLOG_TITLE ?? 'blog'}
+      />
       <meta
         property="og:image"
-        content={title ? ogp(title) : 'https://blog.uzimaru.com/ogp.png'}
+        content={title ? ogp(title) : `${ORIGIN}/ogp.png`}
       />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
@@ -44,7 +55,3 @@ export const OGTag = ({
     </NextHead>
   );
 };
-
-const fabicon = `https://twemoji.maxcdn.com/v/latest/svg/${twemoji.convert.toCodePoint(
-  '🐣'
-)}.svg`;

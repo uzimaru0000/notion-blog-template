@@ -64,13 +64,13 @@ const Page: NextPage<Props> = ({ page, content }) => {
   return (
     <Box>
       <Head>
-        <title>{`${title.title.map(
-          (x) => x.plain_text
-        )} - uzimaru's blog`}</title>
+        <title>{`${title.title.map((x) => x.plain_text)} - ${
+          process.env.NEXT_PUBLIC_BLOG_TITLE ?? 'blog'
+        }`}</title>
       </Head>
       <OGTag
         title={`${title.title.map((x) => x.plain_text)}`}
-        url={`https://blog.uzimaru.com/${page.id}`}
+        url={`${process.env.BLOG_ORIGIN}/${page.id}`}
         type="article"
       />
       {cover && (
